@@ -5,10 +5,14 @@
   <% end %>
   <!-- Right Navigation -->
   <div class="navbar-wagon-right hidden-xs hidden-sm">
-
-    <a href="" class="navbar-wagon-item navbar-wagon-link">Login</a>
-    <a href="" class="navbar-wagon-item navbar-wagon-link">Profile</a>
-
+    <% if user_signed_in? %>
+    <%= link_to "Profile", root_path, class: "navbar-wagon-item navbar-wagon-link" %>
+    <%= link_to destroy_user_session_path, class: "navbar-wagon-item navbar-wagon-link", method: :delete do %>
+                  <%= t(".sign_out", default: "Log out") %>
+              <% end %>
+    <% else %>
+    <%= link_to "Login", new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %>
+    <% end %>
   </div>
 
   <!-- Dropdown appearing on mobile only -->
