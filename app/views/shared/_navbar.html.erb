@@ -3,26 +3,43 @@
   <%= link_to root_path, class: "navbar-wagon-brand" do %>
     <%= image_tag "logo.png" %>
   <% end %>
+
   <!-- Right Navigation -->
-  <div class="navbar-wagon-right hidden-xs hidden-sm">
+  <div class="navbar-wagon-right">
     <% if user_signed_in? %>
-    <%= link_to "Profile", root_path, class: "navbar-wagon-item navbar-wagon-link" %>
-    <%= link_to destroy_user_session_path, class: "navbar-wagon-item navbar-wagon-link", method: :delete do %>
-                  <%= t(".sign_out", default: "Log out") %>
-              <% end %>
+      <% if current_user && current_user.profile %>
+      <!-- Signed in + Profile  -->
+        <%= link_to "Profile", profile_path(current_user.profile), class: "navbar-wagon-item navbar-wagon-link" %>
+        <%= link_to destroy_user_session_path, class: "navbar-wagon-item navbar-wagon-link", method: :delete do %>
+          <%= t(".sign_out", default: "Log out") %>
+        <% end %>
+      <% else %>
+      <!-- Signed in + No Profile -->
+        <%= link_to "Profile", new_profile_path, class: "navbar-wagon-item navbar-wagon-link" %>
+        <%= link_to destroy_user_session_path, class: "navbar-wagon-item navbar-wagon-link", method: :delete do %>
+          <%= t(".sign_out", default: "Log out") %>
+        <% end %>
+      <% end %>
     <% else %>
-    <%= link_to "Login", new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %>
+      <!-- Signed out -->
+        <%= link_to t(".sign_in", default: "Se connecter"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %>
     <% end %>
   </div>
 
+
   <!-- Dropdown appearing on mobile only -->
   <div class="navbar-wagon-item hidden-md hidden-lg">
-    <div class="dropdown">
-      <i class="fas fa-bars dropdown-toggle" data-toggle="dropdown" role="button"></i>
-      <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
-        <li><a href="#">Login</a></li>
-        <li><a href="#">Profile</a></li>
-      </ul>
-    </div>
+    <% if user_signed_in? %>
+      <div class="dropdown">
+        <i class="fas fa-bars dropdown-toggle" data-toggle="dropdown" role="button"></i>
+        <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
+          <li><a href="#">Login</a></li>
+          <li><a href="#">Profile</a></li>
+        </ul>
+      </div>
+    <% else %>
+      <!-- Signed out -->
+      <%= link_to t(".sign_in", default: "Se connecter"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %>
+    <% end %>
   </div>
 </div>
