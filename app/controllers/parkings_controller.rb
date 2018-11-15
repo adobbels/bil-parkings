@@ -1,9 +1,11 @@
 class ParkingsController < ApplicationController
 
   def index
+  @parkings = Parking.where(status: "Not Available")
   end
 
-   def show
+  def show
+
   end
 
    def new

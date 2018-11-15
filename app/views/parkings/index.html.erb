@@ -1,0 +1,9 @@
+<h2>index</h2>
+<% @parkings.each do |parking| %>
+
+  <p><%= parking.number %></p>
+  <p><%= parking.status %></p>
+  <p>owner: <%= parking.profile_id %></p>
+  <%=  %>
+  <br>
+<% end %>
