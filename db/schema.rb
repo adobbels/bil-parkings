@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_15_143400) do
+ActiveRecord::Schema.define(version: 2018_11_15_143721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 2018_11_15_143400) do
     t.integer "number"
     t.bigint "profile_id"
     t.string "status", default: "Not Available"
-    t.string "address"
     t.index ["profile_id"], name: "index_parkings_on_profile_id"
   end
 
