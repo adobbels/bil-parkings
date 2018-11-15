@@ -1,9 +1,9 @@
 <h2>index</h2>
-<% @parkings.each do |parking| %>
 
-  <p><%= parking.number %></p>
-  <p><%= parking.status %></p>
-  <p>owner: <%= parking.profile_id %></p>
-  <%=  %>
+  <p>id: <%= @parking.id %></p>
+  <p>number: <%= @parking.number %></p>
+  <p>status: <%= @parking.status %></p>
+  <p>owner: <%= @parking.profile.id %></p>
+  <p>stamp: <%= @parking.stamp %></p>
+  <%= link_to 'Book it', root_path, class: 'btn btn-danger' %>
   <br>
-<% end %>

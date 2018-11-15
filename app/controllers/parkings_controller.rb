@@ -1,7 +1,8 @@
 class ParkingsController < ApplicationController
 
   def index
-  @parkings = Parking.where(status: "Not Available")
+  @parkings = Parking.where(status: "Available").sort_by{ |p| [p.stamp] }.reverse!
+  @parking = @parkings.last
   end
 
   def show
