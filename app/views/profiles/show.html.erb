@@ -16,14 +16,16 @@
 
 
 
-<h2>if Owners </h2>
 <% @MyParkings = Parking.where(profile_id: tenant_id) %>
-<% @MyParkings.each do |parking| %>
-  <p>parking id:<%= parking.id %></p>
+  <% if @MyParkings.empty? == false %>
+  <h2>My parkings </h2>
+    <% @MyParkings.each do |parking| %>
+      <p>parking id:<%= parking.id %></p>
+      <p>parking status:<%= parking.status %></p>
+      <%= link_to "state", state_parking_path(parking.id) %>
+    <% end %>
 
-  <p>parking status:<%= parking.status %></p>
-  <%= link_to "state", state_parking_path(parking.id) %>
-<% end %>
+  <% end  %>
 
 
 

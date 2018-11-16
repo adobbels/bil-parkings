@@ -11,18 +11,25 @@ class BookingsController < ApplicationController
   end
 
   def create
+
+    if current_user.nil?
+      flash[:alert] = 'Please signup before booking.'
+      return redirect_to new_user_session_path
+    end
+
     @profile = current_user.profile
+
+    if @profile.nil?
+      flash[:alert] = 'Please complete your profile before booking.'
+      return redirect_to new_profile_path(@profile)
+    end
+
     @parking = Parking.find(params[:parking_id])
     # @booking = Booking.new(booking_params)
     @booking = Booking.new
     @booking.parking = @parking
     @booking.profile = @profile
     # authorize @booking
-
-    if @profile.nil?
-      flash[:alert] = 'Please complete your profile before booking.'
-      return redirect_to new_profile_path(@profile)
-    end
 
     if @booking.save
       flash[:notice] = 'Booking was successfully created.'
