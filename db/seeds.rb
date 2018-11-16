@@ -14,6 +14,19 @@ Parking.destroy_all
 Profile.destroy_all
 User.destroy_all
 
+puts "***--- CREATING AN ADMIN PROFILE  ---***"
+
+  user = User.create!(
+    email: "aurelien.dobbels@bil.com",
+    password: "123456",
+    admin: true,
+  )
+  profile = Profile.create!(
+    first_name: "Aurélien",
+    last_name: "Dobbels",
+    user_id: user.id,
+  )
+
 puts "***--- CREATING 5 FAKE USERS & PROFILES  ---***"
 a = []
 5.times do
@@ -41,19 +54,19 @@ b = b + 1
   )
 end
 
-# puts "***--- CREATING 6 PARKINGS AVAILABLE ---***"
-# c = DateTime.now.strftime('%s').to_i
+puts "***--- CREATING 6 PARKINGS AVAILABLE ---***"
+c = DateTime.now.strftime('%s').to_i
 
-# 6.times do
-# b = b + 1
-# c = c + 1
+6.times do
+b = b + 1
+c = c + 1
 
-#   parking = Parking.create!(
-#       number: b,
-#       profile_id: a[rand(0..4)],
-#       status: "Available",
-#       stamp: c,
-#   )
-# end
+  parking = Parking.create!(
+      number: b,
+      profile_id: a[rand(0..4)],
+      status: "Available",
+      stamp: c,
+  )
+end
 
 puts 'Finished!'
