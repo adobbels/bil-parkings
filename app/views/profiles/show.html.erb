@@ -1,6 +1,8 @@
 <h2> Details </h2>
-<%= @profile.first_name %> <br>
-<%= @profile.last_name %>
+<p>First Name: <%= @profile.first_name %></p>
+<p>Last Name: <%= @profile.last_name %></p>
+<p>my ID: <%= @profile.id %></p>
+<% tenant_id = @profile.id %>
 <p><%= link_to 'Edit my profile', edit_profile_path(@profile), class: 'btn btn-rounded'%></p>
 
 <h2>Past Bookings</h2>
@@ -8,10 +10,16 @@
 <% @bookings.each do |booking| %>
   <p>parking id:<%= booking.parking_id %></p>
   <p>date:<%= booking.created_at %></p>
-  <p>owner id: <%= owner = @parkings.where(id: @bookings.first.parking_id).first.profile_id %></p>
+  <% owner_id = Parking.where(id: booking.parking_id)[0].profile_id %>
+  <p>owner id: <%= owner_id %></p>
 <% end %>
 
+
+
 <h2>if Owners </h2>
-<p>to be done</p>
+<% @MyParkings = Parking.where(profile_id: tenant_id) %>
+<% @MyParkings.each do |parking| %>
+  <p>parking id:<%= parking.id %></p>
+<% end %>
 
 
