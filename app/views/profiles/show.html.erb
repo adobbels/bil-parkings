@@ -1,4 +1,17 @@
-<h2> Show </h2>
+<h2> Details </h2>
 <%= @profile.first_name %> <br>
 <%= @profile.last_name %>
 <p><%= link_to 'Edit my profile', edit_profile_path(@profile), class: 'btn btn-rounded'%></p>
+
+<h2>Past Bookings</h2>
+<% @bookings = Booking.where(profile_id: @profile.id) %>
+<% @bookings.each do |booking| %>
+  <p>parking id:<%= booking.parking_id %></p>
+  <p>date:<%= booking.created_at %></p>
+  <p>owner id: <%= owner = @parkings.where(id: @bookings.first.parking_id).first.profile_id %></p>
+<% end %>
+
+<h2>if Owners </h2>
+<p>to be done</p>
+
+

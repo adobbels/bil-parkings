@@ -1,0 +1,20 @@
+<h2>index</h2>
+
+<p>id: <%= @parking.id %></p>
+<p>number: <%= @parking.number %></p>
+<p>status: <%= @parking.status %></p>
+<p>owner: <%= @parking.profile.id %></p>
+<p>stamp: <%= @parking.stamp %></p>
+<br>
+
+<% @booking = Booking.new %>
+
+<%= simple_form_for [@parking, @booking], class: 'login-box' do |f| %>
+  <h4>€10 / mois / chambre</h4>
+  <% booking = Booking.where({parking_id: @parking.id}) %>
+  <hr>
+
+  <p>
+    <%= f.submit "JE VEUX RESERVER !", class: "btn btn-danger btn-block" %>
+  </p>
+<%end%>

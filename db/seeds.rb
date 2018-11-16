@@ -42,12 +42,17 @@ b = b + 1
 end
 
 puts "***--- CREATING 6 PARKINGS AVAILABLE ---***"
+c = DateTime.now.strftime('%s').to_i
+
 6.times do
 b = b + 1
+c = c + 1
+
   parking = Parking.create!(
       number: b,
       profile_id: a[rand(0..4)],
-      status: "Available"
+      status: "Available",
+      stamp: c,
   )
 end
 
