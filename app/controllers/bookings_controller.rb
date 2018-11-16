@@ -41,6 +41,8 @@ class BookingsController < ApplicationController
   end
 
 
+
+
   def edit
   end
 

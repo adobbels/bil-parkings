@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   resources :profiles
   resources :parkings do
+      member do
+        get 'state', to: 'parkings#state'
+    end
     resources :bookings
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
+
