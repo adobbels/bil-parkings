@@ -1,24 +1,83 @@
-<h2>index</h2>
 
-<% if @parking.nil? == false  %>
-  <p>id: <%= @parking.id %></p>
-  <p>number: <%= @parking.number %></p>
-  <p>status: <%= @parking.status %></p>
-  <p>owner: <%= @parking.profile.id %></p>
-  <p>stamp: <%= @parking.stamp %></p>
-  <br>
+<!--   <% if @parking.nil? == false  %>
+  <p>id: <%= @parking.id %> / number: <%= @parking.number %> / status: <%= @parking.status %>/ owner: <%= @parking.profile.id %> / stamp: <%= @parking.stamp %></p>
+  <% else  %>
+  <% end  %> -->
 
   <% @booking = Booking.new %>
 
-  <%= simple_form_for [@parking, @booking], class: 'login-box' do |f| %>
-    <h4>€10 / mois / chambre</h4>
-    <% booking = Booking.where({parking_id: @parking.id}) %>
-    <hr>
+    <!--============================= PAYMENT METHORD =============================-->
 
-    <p>
-      <%= f.submit "JE VEUX RESERVER !", class: "btn btn-danger btn-block" %>
-    </p>
-  <%end%>
+    <section class="main-block" style="background-image: url('assets/bmw.jpeg')">
+        <div class="container-fluid" >
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="row">
+<% if @parking.nil? == false  %>
+                        <div class="col-md-4" style="background-color: white; padding-top: 15px; border-radius: 5px;">
+
+                            <div class="booking-summary_block">
+                                <div class="booking-summary-box">
+                                    <h6>Lucky you!<br>A parking slot is available.🎉</h6>
+                                    <span>69 route d'Esch, 2953 Luxembourg</span>
+
+                                    <div class="booking-summary_deatail">
+                                        <h5>Booking Summary</h5>
+                                        <div class="booking-cost">
+                                            <span>Reservation Details</span>
+                                            <p>Slot number <span> <%= @parking.number %> </span></p>
+                                            <p>Date <span> <%= Time.now.next_day(1).strftime('%a %d %b %Y') %> </span></p>
+                                            <p>Time <span>7am to 7pm</span></p>
+                                        </div>
+                                        <div class="booking-cost">
+                                            <span>Pricing Details</span>
+                                            <p>Owner <span>€9.00</span></p>
+                                            <p>Platform <span>€1.00</span></p>
+                                            <p>Total Cost <span class="total-red">€10.00</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%= simple_form_for [@parking, @booking], class: 'login-box' do |f| %>
+                              <% booking = Booking.where({parking_id: @parking.id}) %>
+                              <br>
+                              <p><%= f.submit "Book my slot", class: "btn btn-danger btn-block" %></p>
+                            <%end%>
 <% else  %>
-  <h2>No parking available ATM</h2>
+
+                        <div class="col-md-4" style="background-color: white; padding-bottom: 15px; padding-top: 15px; border-radius: 5px;">
+                            <div class="booking-summary_block">
+                                <div class="booking-summary-box">
+                                    <h6>Ouch!<br>No car slot available at the moment. 😭</h6>
+                                    <span>69 route d'Esch, 2953 Luxembourg</span>
+
+                                    <div class="booking-summary_deatail">
+                                        <h5>Booking Summary</h5>
+                                        <div class="booking-cost">
+                                            <span>Reservation Details</span>
+                                            <p>Slot number <span> Not Available </span></p>
+                                            <p>Date <span> Not Available </span></p>
+                                            <p>Time <span>Not Available</span></p>
+                                        </div>
+                                        <div class="booking-cost">
+                                            <span>Pricing Details</span>
+                                            <p>Owner <span>Not Available</span></p>
+                                            <p>Platform <span>Not Available</span></p>
+                                            <p>Total Cost <span class="total-red">Not Available</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+<%= link_to 'Back home', root_path, class: 'btn btn-danger btn-block' %>
+
 <% end  %>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--//END PAYMENT METHORD -->

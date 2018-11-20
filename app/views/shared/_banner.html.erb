@@ -1,7 +1,47 @@
-<div class="banner">
-  <div class="banner-content">
-    <h1>AirP+R</h1>
-    <p>Book your parking slot for tomorrow and <br> park your car where you work</p>
-    <%= link_to 'Start now', parkings_path, class: 'btn btn-danger' %>
-  </div>
-</div>
+
+<section class="hero-wrap d-flex align-items-center" style="background-color: white">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="hero-title">
+                <h1>Where will you park tomorrow?</h1>
+                <h3>Find out the perfect slot to park your car where you work</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form>
+                    <div class="search-box">
+                        <div class="row">
+                            <div class="col-md-6 search-box_line">
+                                <div class="search-box1">
+                                    <div class="search-box-title">
+                                        <label>When?</label><br>
+
+<!--                                         <input type="text" name="#" class="search-form" placeholder=<%= Time.now.strftime("%m/%d/%Y")%>> -->
+                                        <input type="text" name="#" class="search-form" value=<%= Date.tomorrow.strftime('%m/%d/%Y')  %> disabled="disabled">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="search-box2">
+                                    <div class="search-box-title">
+                                        <label>Where?</label><br>
+                                        <input type="text" name="#" class="search-form" value="Banque Internationale à Luxembourg" disabled="disabled">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-search">
+                        <%= link_to 'Search →', parkings_path, class: 'btn btn-simple' %>
+                    </div>
+                </form>
+                <p class="search-bottom-title">By using this website, you are agreeing to our <a href="#"> terms and conditions</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
