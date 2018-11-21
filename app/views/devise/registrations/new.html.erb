@@ -23,3 +23,60 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+
+
+
+    <!--============================= ADD LISTING =============================-->
+    <section class="main-block">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="listing-wrap">
+
+                            <!-- General Information -->
+                            <div class="listing-title">
+                                <h4>Welcome on board 🍾</h4>
+                                <p>Please create your account</p>
+                            </div>
+
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= f.error_notification %>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <%= f.input :email, required: true, autofocus: true , class: "form-control add-listing_form", placeholder: "email@example.com" %>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <%= f.input :password,required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),input_html: { autocomplete: "new-password" }, placeholder: "🔑" %>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <%= f.input :password_confirmation,required: true,input_html: { autocomplete: "new-password" }, placeholder: "🔑" %>
+                                    </div>
+                                </div>
+                            </div>
+
+                           <div class="row">
+                                <div class="col-md-12">
+                                    <div class="btn-wrap btn-wrap2">
+                                        <%= f.button :submit, "SIGN UP", class: "btn btn-simple"%>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <% end %>
+
+   <%= render "devise/shared/links" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--//END ADD LISTING -->

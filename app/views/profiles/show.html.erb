@@ -1,7 +1,4 @@
 
-
-
-<h2>Past Bookings</h2>
 <% @bookings = Booking.where(profile_id: @profile.id) %>
 <% @bookings.each do |booking| %>
   <p>parking id:<%= booking.parking_id %></p>
@@ -11,18 +8,10 @@
 <% end %>
 
 
-
-
-
-
-
-
-
-
     <!--============================= BOOKING DETAILS =============================-->
     <% @bookings = Booking.where(profile_id: @profile.id) %>
     <% @my_bookings = Booking.where(profile_id: @profile.id) %>
-    <% if @my_bookings.last.created_at.strftime("%m/%d/%Y") == Time.now.strftime("%m/%d/%Y")  %>
+    <% if @my_bookings != [] && @my_bookings.last.created_at.strftime("%m/%d/%Y") == Time.now.strftime("%m/%d/%Y")  %>
     <% @current_booking = true  %>
     <% end  %>
     <section class="gray-dark booking-details_wrap">
@@ -32,19 +21,30 @@
                     <div class="booking-checkbox_wrap my-4">
                         <h4>Current Booking</h4>
                         <hr>
-                        <% if @current_booking = true %>
+                        <% if @current_booking == true %>
                           <div class="customer-review_wrap">
                               <div class="customer-content-wrap" style="margin-left: 0px">
                                   <div class="customer-content">
                                       <div class="customer-review">
-                                          <h5>Parking id: <%= @my_bookings.last.parking_id %></h5>
-                                          <p style="margin-left: 0px">Booking date: <%= @my_bookings.last.created_at.strftime("%m/%d/%Y") %></p>
+                                          <h5>Parking #<%= Parking.where(id: @my_bookings.last.parking_id)[0].number %></h5>
+                                          <p style="margin-left: 0px">Booked on <%= @my_bookings.last.created_at.strftime("%m/%d/%Y") %></p><br>
+                                          <p style="margin-left: 0px">will be avaialble tomorrow <%= Date.tomorrow.strftime('%m/%d/%Y') %></p>
                                       </div>
                                       <div class="customer-rating">Next Booking</div>
                                   </div>
                               </div>
                           </div>
                         <% else  %>
+                          <div class="customer-review_wrap">
+                                <div class="customer-content-wrap" style="margin-left: 0px">
+                                    <div class="customer-content">
+                                        <div class="customer-review">
+                                            <h5>No parking booked for tomorrow</h5>
+                                        </div>
+                                        <%= link_to "Book Now", parkings_path, style:"    background: #46cd38; padding: 4px 16px; float: right; color: #fff; border-radius: 3px; border: none; font-size: 16px" %>
+                                    </div>
+                                </div>
+                            </div>
                         <% end  %>
                         <hr>
                     </div>
@@ -53,23 +53,36 @@
                     <div class="booking-checkbox_wrap my-4">
                         <h4>Past Bookings</h4>
                         <hr>
-                        <% @bookings.each do |booking| %>
-                          <% if booking.created_at.strftime("%m/%d/%Y") != Time.now.strftime("%m/%d/%Y") %>
-                                <div class="customer-review_wrap">
-                                    <div class="customer-content-wrap" style="margin-left: 0px">
-                                        <div class="customer-content">
-                                            <div class="customer-review">
-                                                <h5>Parking id: <%= booking.parking_id %></h5>
-                                                <p style="margin-left: 0px">Booking date: <%= booking.created_at.strftime("%m/%d/%Y")  %></p>
-                                                <p><% owner_id = Parking.where(id: booking.parking_id)[0].profile_id %></p>
-                                                <p style="margin-left: 0px">Owner id: <%= owner_id %></p>
-                                            </div>
-                                            <div class="customer-rating customer-rating-red">Past Booking</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                          <% end  %>
+                        <% if @bookings != [] %>
+                          <% @bookings.each do |booking| %>
+                            <% if booking.created_at.strftime("%m/%d/%Y") != Time.now.strftime("%m/%d/%Y") %>
+                                  <div class="customer-review_wrap">
+                                      <div class="customer-content-wrap" style="margin-left: 0px">
+                                          <div class="customer-content">
+                                              <div class="customer-review">
+                                                  <h5>Parking id: <%= booking.parking_id %></h5>
+                                                  <p style="margin-left: 0px">Booking date: <%= booking.created_at.strftime("%m/%d/%Y")  %></p>
+                                                  <p><% owner_id = Parking.where(id: booking.parking_id)[0].profile_id %></p>
+                                                  <p style="margin-left: 0px">Owner id: <%= owner_id %></p>
+                                              </div>
+                                              <div class="customer-rating customer-rating-red">Past Booking</div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <hr>
+                            <% end  %>
+                          <% end %>
+                        <% else %>
+                          <div class="customer-review_wrap">
+                                      <div class="customer-content-wrap" style="margin-left: 0px">
+                                          <div class="customer-content">
+                                              <div class="customer-review">
+                                                  <h5>No parking booked yet 😥</h5>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <hr>
                         <% end %>
                     </div>
 
@@ -77,10 +90,10 @@
 <% @MyParkings = Parking.where(profile_id: owner_id) %>
 
 
+                  <% if @MyParkings.empty? == false %>
                     <div class="booking-checkbox_wrap my-4">
                         <h4>My Parking</h4>
                         <hr>
-                        <% if @MyParkings.empty? == false %>
                           <% @MyParkings.each do |parking| %>
                             <div class="customer-review_wrap">
                                 <div class="customer-content-wrap" style="margin-left: 0px">
@@ -93,19 +106,14 @@
                                               <%= link_to "Make it unavailable", state_parking_path(parking.id), style:"float: right; font-size: 14px; color: #ff6b6b !important; border: none" %>
                                             <% else  %>
                                               <%= link_to "Make it available", state_parking_path(parking.id), style:"float: right; font-size: 14px; color: #73cf42 !important; border: none" %>
-
-
-
-
-
                                             <% end  %>
                                     </div>
                                 </div>
                             </div>
                             <hr>
                           <% end %>
-                        <% end  %>
                     </div>
+                  <% end  %>
                 </div>
 
                 <div class="col-md-4 responsive-wrap">
@@ -116,15 +124,22 @@
                             <span>Luxembourg</span>
                         </div>
                         <ul class="d-flex">
-                            <li class=" flex-fill">
-                                <h6> <%= @my_bookings.count %> </h6>
-                                <span>bookings</span>
-                            </li>
-                            <li class=" flex-fill">
-                                <% last_booking =  @bookings.all.sort_by {|booking| booking.created_at}.last %>
-                                <h6><%= last_booking.created_at.strftime("%m/%d/%Y") %></h6>
-                                <span>last booking</span>
-                            </li>
+                              <li class=" flex-fill">
+                                  <h6> <%= @my_bookings.count %> </h6>
+                                  <span>bookings</span>
+                              </li>
+                          <% if @my_bookings.nil? == false %>
+                              <li class=" flex-fill">
+                                  <% last_booking =  @bookings.all.sort_by {|booking| booking.created_at}.last %>
+                                  <h6><%= last_booking.created_at.strftime("%m/%d/%Y") %></h6>
+                                  <span>last booking</span>
+                              </li>
+                          <% else  %>
+                              <li class=" flex-fill">
+                                  <h6> - </h6>
+                                  <span>last booking</span>
+                              </li>
+                          <% end  %>
                         </ul>
                         <p><%= link_to 'EDIT MY PROFILE', edit_profile_path(@profile), class: 'btn btn-outline-danger btn-contact'%></p>
                     </div>
