@@ -127,7 +127,7 @@
                                   <h6> <%= @my_bookings.count %> </h6>
                                   <span>bookings</span>
                               </li>
-                          <% if @my_bookings.nil? == false %>
+                          <% if @bookings.empty? == false %>
                               <li class=" flex-fill">
                                   <% last_booking =  @bookings.all.sort_by {|booking| booking.created_at}.last %>
                                   <h6><%= last_booking.created_at.strftime("%m/%d/%Y") %></h6>
