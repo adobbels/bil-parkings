@@ -18,14 +18,13 @@
 
                             <div class="booking-summary_block">
                                 <div class="booking-summary-box">
-                                    <h6>Lucky you!<br>A parking slot is available.🎉</h6>
-                                    <span>69 route d'Esch, 2953 Luxembourg</span>
-
+                                    <h2>Lucky you!<br>A parking slot is available.🎉</h2>
+                                    <hr>
                                     <div class="booking-summary_deatail">
                                         <h5>Booking Summary</h5>
                                         <div class="booking-cost">
                                             <span>Reservation Details</span>
-                                            <p>Slot number <span> <%= @parking.number %> </span></p>
+                                            <p>Lot number <span> <%= @parking.number %> </span></p>
                                             <p>Date <span> <%= Time.now.next_day(1).strftime('%a %d %b %Y') %> </span></p>
                                             <p>Time <span>7am to 7pm</span></p>
                                         </div>
@@ -41,7 +40,7 @@
                             <%= simple_form_for [@parking, @booking], class: 'login-box' do |f| %>
                               <% booking = Booking.where({parking_id: @parking.id}) %>
                               <br>
-                              <p><%= f.submit "Book my slot", class: "btn btn-danger btn-block" %></p>
+                              <p><%= f.submit "Book this lot", class: "btn btn-danger btn-block" %></p>
                             <%end%>
 <% else  %>
 

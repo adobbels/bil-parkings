@@ -1,10 +1,9 @@
 
 <% @bookings = Booking.where(profile_id: @profile.id) %>
 <% @bookings.each do |booking| %>
-  <p>parking id:<%= booking.parking_id %></p>
-  <p>date:<%= booking.created_at %></p>
-  <% owner_id = Parking.where(id: booking.parking_id)[0].profile_id %>
-  <p>owner id: <%= owner_id %></p>
+<% booking.parking_id %>
+<% booking.created_at %>
+<% owner_id = Parking.where(id: booking.parking_id)[0].profile_id %>
 <% end %>
 
 
@@ -60,10 +59,10 @@
                                       <div class="customer-content-wrap" style="margin-left: 0px">
                                           <div class="customer-content">
                                               <div class="customer-review">
-                                                  <h5>Parking id: <%= booking.parking_id %></h5>
-                                                  <p style="margin-left: 0px">Booking date: <%= booking.created_at.strftime("%m/%d/%Y")  %></p>
-                                                  <p><% owner_id = Parking.where(id: booking.parking_id)[0].profile_id %></p>
-                                                  <p style="margin-left: 0px">Owner id: <%= owner_id %></p>
+                                                  <h5>Parking #<%= Parking.where(id: booking.parking_id)[0].number %></h5>
+                                                  <% a = booking.created_at + 1440.minutes %>
+                                                  <p style="margin-left: 0px">Booked on <%= booking.created_at.strftime("%m/%d/%Y")  %></p><br>
+                                                  <p style="margin-left: 0px">was avaialble on <%= a.strftime("%m/%d/%Y") %></p>
                                               </div>
                                               <div class="customer-rating customer-rating-red">Past Booking</div>
                                           </div>
@@ -99,8 +98,8 @@
                                 <div class="customer-content-wrap" style="margin-left: 0px">
                                     <div class="customer-content">
                                             <div class="customer-review">
-                                                <h5>Parking id: <%= parking.id %></h5>
-                                                <p style="margin-left: 0px">parking status: <%= parking.status %></p>
+                                                <h5>Parking #<%= Parking.where(id: parking.id)[0].number %></h5>
+                                                <p style="margin-left: 0px">Parking status: <%= parking.status %></p>
                                             </div>
                                             <% if parking.status == "Available" %>
                                               <%= link_to "Make it unavailable", state_parking_path(parking.id), style:"float: right; font-size: 14px; color: #ff6b6b !important; border: none" %>
