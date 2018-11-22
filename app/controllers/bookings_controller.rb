@@ -36,6 +36,7 @@ class BookingsController < ApplicationController
       # BookingMailer.creation_confirmation(@booking).deliver_now
       # BookingAdminMailer.admin_creation_confirmation(@booking).deliver_now
        @parking.status = "Not Available"
+       @parking.stamp = ""
        @parking.save
        redirect_to profile_path(@profile)
     else

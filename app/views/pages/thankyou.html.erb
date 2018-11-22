@@ -1,0 +1,17 @@
+    <!--============================= CONFIRMATION =============================-->
+    <section class="main-block">
+        <div class="container-fluid">
+            <div class="row justify-content-center align-items-center  min-height-block">
+                <div class="col-md-12">
+                    <div class="confirmation-wrap">
+                        <span class="ti-check"></span>
+                        <h2>Thank you for your booking</h2>
+                        <p>You'll receive a confirmation email at <%= current_user.email %></p>
+                        <% @profile = Profile.where(user_id: current_user.id).first.id  %>
+                        <p><%= link_to 'BACK TO MY PROFILE', profile_path(@profile), class: 'btn btn-outline-danger btn-confirmation'%></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--//END CONFIRMATION -->

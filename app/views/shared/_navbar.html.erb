@@ -20,8 +20,46 @@
                                                             </ul>
                                     <% elsif current_user && current_user.profile %>
                                                             <ul class="navbar-nav">
+<!-- management parking status within navbar -->
+<% @profile = current_user.profile  %>
+<% owner_id = @profile.id %>
+<% @MyParkings = Parking.where(profile_id: owner_id) %>
+
+<li>
+<% if @MyParkings.empty? == false %>
+          <% @MyParkings.each do |parking| %>
+                            <!-- can't change status if parking currently booked -->
+                            <% @MyBookings = Booking.all.where(parking_id: parking.id)  %>
+                            <% if @MyBookings.empty? == false  %>
+                              <% @MyBookings.each do |booking| %>
+                                <% @BookingDate = booking.created_at.strftime("%m/%d/%Y")  %>
+                                <% if @BookingDate == Time.now.strftime("%m/%d/%Y")  %>
+                                  <p style="float: right; font-size: 14px; color: #ff6b6b !important; border: none">Currently rent, status can't be amended ✋</p>
+                                <% else  %>
+                                  <% if parking.status == "Available" %>
+                                    <%= link_to "Make my parking unavailable", state_parking_path(parking.id), style:"float: right; font-size: 16px; color: #ff6b6b !important; border: none" %>
+                                  <% else  %>
+                                    <%= link_to "Make my parking available", state_parking_path(parking.id), style:"float: right; font-size: 16px; color: #73cf42 !important; border: none" %>
+                                  <% end  %>
+                                <% end  %>
+                              <% end  %>
+                            <!-- end: can't change status if parking currently booked -->
+                            <% else  %>
+                              <% if parking.status == "Available" %>
+                                    <%= link_to "Make it unavailable", state_parking_path(parking.id), style:"float: right; font-size: 16px; color: #ff6b6b !important; border: none" %>
+                              <% else  %>
+                                    <%= link_to "Make it available", state_parking_path(parking.id), style:"float: right; font-size: 16px; color: #73cf42 !important; border: none" %>
+                              <% end  %>
+                            <% end  %>
+          <% end %>
+  <% end  %>
+</li>
+<!-- end: management parking status within navbar -->
                                                                   <li class="nav-item"><%= link_to "Profile", profile_path(current_user.profile), class: "nav-link" %></li>
                                                                   <li class="nav-item"><%= link_to destroy_user_session_path, class: "nav-link", method: :delete do %><%= t(".sign_out", default: "Log out") %><% end %></li>
+
+
+
                                                             </ul>
                                     <% else %>
                                                             <ul class="navbar-nav">
