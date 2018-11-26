@@ -6,95 +6,151 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
+require 'csv'
 
-puts "***--- SEEDS PROCESSING ---***"
+puts "***--- DELETING CURRENT DATABASE ---***"
 
 Booking.destroy_all
 Parking.destroy_all
 Profile.destroy_all
 User.destroy_all
 
-puts "***--- CREATING AN ADMIN PROFILE  ---***"
+puts "***--- READING CSV DATABASE ---***"
+
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'users.csv'))
+csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+
+puts "***--- CREATING ADMIN USER ---***"
 
   user = User.create!(
-    email: "aurelien.dobbels@bil.com",
-    password: "123456",
+    email: 'aurelien.dobbels@bil.com',
+    password: '123456',
     admin: true,
   )
   profile = Profile.create!(
-    first_name: "Aurélien",
-    last_name: "Dobbels",
+    first_name: 'Aurélien',
+    last_name: 'Dobbels',
     user_id: user.id,
   )
 
-puts "***--- CREATING 5 USERS & PROFILES  ---***"
-a = []
 
-  user = User.create!(
-    email: "david@bil.com",
-    password: "123456"
-  )
-  profile = Profile.create!(
-    first_name: "David",
-    last_name: "Mansy",
-    user_id: user.id,
-  )
-a << profile.id
+puts "***--- CREATING USERS ---***"
+csv.each do |row|
+  #  puts row['email'], row['password'],row['admin'], row['first_name'], row['last_name'], row['number'], row['status']
+
 
   user = User.create!(
-    email: "claude@bil.com",
-    password: "123456"
+    email: row['email'],
+    password: row['password'],
+    admin: row['admin'],
   )
   profile = Profile.create!(
-    first_name: "Claude",
-    last_name: "Martin",
+    first_name: row['first_name'],
+    last_name: row['last_name'],
     user_id: user.id,
   )
-a << profile.id
+  parking = Parking.create!(
+      number: row['number'],
+      status: row['status'],
+      profile_id: profile.id,
+  )
 
-  user = User.create!(
-    email: "nathalie@bil.com",
-    password: "123456"
-  )
-  profile = Profile.create!(
-    first_name: "Nathalie",
-    last_name: "Knops",
-    user_id: user.id,
-  )
-a << profile.id
+end
 
-  user = User.create!(
-    email: "veronique@bil.com",
-    password: "123456"
-  )
-  profile = Profile.create!(
-    first_name: "Véronique",
-    last_name: "Schlick",
-    user_id: user.id,
-  )
-a << profile.id
+# puts "***--- SEEDS PROCESSING ---***"
 
-  user = User.create!(
-    email: "francois@bil.com",
-    password: "123456"
-  )
-  profile = Profile.create!(
-    first_name: "François",
-    last_name: "Giotto",
-    user_id: user.id,
-  )
-a << profile.id
+# Booking.destroy_all
+# Parking.destroy_all
+# Profile.destroy_all
+# User.destroy_all
 
-  user = User.create!(
-    email: "nicolas@bil.com",
-    password: "123456"
-  )
-  profile = Profile.create!(
-    first_name: "Nicolas",
-    last_name: "Legay",
-    user_id: user.id,
-  )
-a << profile.id
+# puts "***--- CREATING SEEDS  ---***"
+
+#   user = User.create!(
+#     email: "aurelien.dobbels@bil.com",
+#     password: "123456",
+#     admin: true,
+#   )
+#   profile = Profile.create!(
+#     first_name: "Aurélien",
+#     last_name: "Dobbels",
+#     user_id: user.id,
+#   )
+
+#   parking = Parking.create!(
+#       number: 1,
+#       status: "Not Available",
+#       profile_id: profile.id,
+#   )
+
+# puts "***--- CREATING 5 USERS & PROFILES  ---***"
+# a = []
+
+#   user = User.create!(
+#     email: "david@bil.com",
+#     password: "123456"
+#   )
+#   profile = Profile.create!(
+#     first_name: "David",
+#     last_name: "Mansy",
+#     user_id: user.id,
+#   )
+# a << profile.id
+
+#   user = User.create!(
+#     email: "claude@bil.com",
+#     password: "123456"
+#   )
+#   profile = Profile.create!(
+#     first_name: "Claude",
+#     last_name: "Martin",
+#     user_id: user.id,
+#   )
+# a << profile.id
+
+#   user = User.create!(
+#     email: "nathalie@bil.com",
+#     password: "123456"
+#   )
+#   profile = Profile.create!(
+#     first_name: "Nathalie",
+#     last_name: "Knops",
+#     user_id: user.id,
+#   )
+# a << profile.id
+
+#   user = User.create!(
+#     email: "veronique@bil.com",
+#     password: "123456"
+#   )
+#   profile = Profile.create!(
+#     first_name: "Véronique",
+#     last_name: "Schlick",
+#     user_id: user.id,
+#   )
+# a << profile.id
+
+#   user = User.create!(
+#     email: "francois@bil.com",
+#     password: "123456"
+#   )
+#   profile = Profile.create!(
+#     first_name: "François",
+#     last_name: "Giotto",
+#     user_id: user.id,
+#   )
+# a << profile.id
+
+#   user = User.create!(
+#     email: "nicolas@bil.com",
+#     password: "123456"
+#   )
+#   profile = Profile.create!(
+#     first_name: "Nicolas",
+#     last_name: "Legay",
+#     user_id: user.id,
+#   )
+# a << profile.id
 
 # puts "***--- CREATING 5 FAKE USERS & PROFILES  ---***"
 # a = []
@@ -111,25 +167,25 @@ a << profile.id
 # a << profile.id
 # end
 
-puts "***--- CREATING 3 PARKING NOT AVAILABLE ---***"
+# puts "***--- CREATING 3 PARKING NOT AVAILABLE ---***"
 
-  parking = Parking.create!(
-      number: 1,
-      profile_id: a[0],
-      status: "Not Available",
-  )
+#   parking = Parking.create!(
+#       number: 1,
+#       profile_id: a[0],
+#       status: "Not Available",
+#   )
 
-    parking = Parking.create!(
-      number: 2,
-      profile_id: a[1],
-      status: "Not Available",
-  )
+#     parking = Parking.create!(
+#       number: 2,
+#       profile_id: a[1],
+#       status: "Not Available",
+#   )
 
-  parking = Parking.create!(
-      number: 3,
-      profile_id: a[2],
-      status: "Not Available",
-  )
+#   parking = Parking.create!(
+#       number: 3,
+#       profile_id: a[2],
+#       status: "Not Available",
+#   )
 
 # puts "***--- CREATING 4 PARKING NOT AVAILABLE ---***"
 # b = 0
@@ -157,4 +213,4 @@ puts "***--- CREATING 3 PARKING NOT AVAILABLE ---***"
 #   )
 # end
 
-puts 'Finished!'
+puts 'FINISHED!'
