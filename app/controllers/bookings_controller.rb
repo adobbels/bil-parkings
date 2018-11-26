@@ -32,13 +32,13 @@ class BookingsController < ApplicationController
     # authorize @booking
 
     if @booking.save
-      flash[:notice] = 'Booking was successfully created.'
+      # flash[:notice] = 'Booking was successfully created.'
       # BookingMailer.creation_confirmation(@booking).deliver_now
       # BookingAdminMailer.admin_creation_confirmation(@booking).deliver_now
        @parking.status = "Not Available"
        @parking.stamp = ""
        @parking.save
-       redirect_to profile_path(@profile)
+       redirect_to pages_thankyou_path
     else
       flash[:alert] = 'Booking has been not created'
       # BookingMailer.no_creation_confirmation(@booking).deliver_now

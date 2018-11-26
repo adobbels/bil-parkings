@@ -6,7 +6,9 @@ class ParkingsController < ApplicationController
   end
 
   def show
-    @parking = Parking.find(params[:id])
+    parking = Parking.find(params[:id])
+    @MyBookings = Booking.all.where(parking_id: parking.id)
+    @profile = current_user.profile
   end
 
   def state

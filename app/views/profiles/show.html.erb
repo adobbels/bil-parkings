@@ -107,7 +107,7 @@
                                                 <% @BookingDate = booking.created_at.strftime("%m/%d/%Y")  %>
 
                                                 <% if @BookingDate == Time.now.strftime("%m/%d/%Y")  %>
-                                                  <p style="float: right; font-size: 16px;  padding-top: 12.5px; padding-bottom: 12.5px; color: #ff6b6b !important; border: none">Currently rent, status can't be amended ✋</p>
+                                                  <p style="float: right; font-size: 16px;  padding-top: 12.5px; padding-bottom: 12.5px; color: #ff6b6b !important; border: none">Rent /status can't be amended✋</p>
                                                 <% else %>
                                                   <% if parking.status == "Available" %>
                                                     <%= link_to "Make it unavailable", state_parking_path(parking.id), style:"    background: #ff6b6b; padding: 4px 16px; float: right; color: #fff; border-radius: 3px; border: none; font-size: 16px" %>

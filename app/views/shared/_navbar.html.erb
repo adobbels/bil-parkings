@@ -38,16 +38,16 @@
                                                   <p style="float: right; font-size: 16px;  padding-top: 12.5px; padding-bottom: 12.5px; line-height: 25px;color: #ff6b6b !important; border: none">Currently rent, status can't be amended ✋</p>
                                                 <% else %>
                                                   <% if parking.status == "Available" %>
-                                                    <%= link_to "Make it unavailable", state_parking_path(parking.id), style:"    background: #ff6b6b; padding: 12px; float: right; color: #fff; border-radius: 3px; border: none; font-size: 16px" %>
+                                                    <%= link_to "Make it unavailable", state_parking_path(parking.id), style:"    background: #ff6b6b; padding: 12px; float: right; color: #fff; border-radius: 3px; border: none; font-size: 16px; text-decoration: none" %>
                                                   <% else  %>
-                                                    <%= link_to "Make it available", state_parking_path(parking.id), style:"    background: #46cd38; padding: 12px; float: right; color: #fff; border-radius: 3px; border: none; font-size: 16px" %>
+                                                    <%= link_to "Make it available", state_parking_path(parking.id), style:"    background: #46cd38; padding: 12px; float: right; color: #fff; border-radius: 3px; border: none; font-size: 16px; text-decoration: none" %>
                                                   <% end  %>
                                                 <% end  %>
                                             <% else  %>
                                               <% if parking.status == "Available" %>
-                                                    <%= link_to "Make it unavailable", state_parking_path(parking.id), style:"    background: #ff6b6b; padding: 12px; float: right; color: #fff; border-radius: 3px; border: none; font-size: 16px" %>
+                                                    <%= link_to "Make it unavailable", state_parking_path(parking.id), style:"    background: #ff6b6b; padding: 12px; float: right; color: #fff; border-radius: 3px; border: none; font-size: 16px; text-decoration: none" %>
                                               <% else  %>
-                                                    <%= link_to "Make it available", state_parking_path(parking.id), style:"    background: #46cd38; padding: 12px; float: right; color: #fff; border-radius: 3px; border: none; font-size: 16px" %>
+                                                    <%= link_to "Make it available", state_parking_path(parking.id), style:"    background: #46cd38; padding: 12px; float: right; color: #fff; border-radius: 3px; border: none; font-size: 16px; text-decoration: none" %>
                                               <% end  %>
                                             <% end  %>
           <% end %>
