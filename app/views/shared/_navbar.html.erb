@@ -29,28 +29,27 @@
 <% if @MyParkings.empty? == false %>
           <% @MyParkings.each do |parking| %>
                             <!-- can't change status if parking currently booked -->
-                            <% @MyBookings = Booking.all.where(parking_id: parking.id)  %>
-                            <% if @MyBookings.empty? == false  %>
-                              <% @MyBookings.each do |booking| %>
-                                <% @BookingDate = booking.created_at.strftime("%m/%d/%Y")  %>
-                                <% if @BookingDate == Time.now.strftime("%m/%d/%Y")  %>
-                                  <p style="float: right; font-size: 14px; color: #ff6b6b !important; border: none">Currently rent, status can't be amended ✋</p>
-                                <% else  %>
-                                  <% if parking.status == "Available" %>
-                                    <%= link_to "Make my parking unavailable", state_parking_path(parking.id), style:"float: right; font-size: 16px; color: #ff6b6b !important; border: none" %>
-                                  <% else  %>
-                                    <%= link_to "Make my parking available", state_parking_path(parking.id), style:"float: right; font-size: 16px; color: #73cf42 !important; border: none" %>
-                                  <% end  %>
-                                <% end  %>
-                              <% end  %>
-                            <!-- end: can't change status if parking currently booked -->
-                            <% else  %>
-                              <% if parking.status == "Available" %>
-                                    <%= link_to "Make it unavailable", state_parking_path(parking.id), style:"float: right; font-size: 16px; color: #ff6b6b !important; border: none" %>
-                              <% else  %>
-                                    <%= link_to "Make it available", state_parking_path(parking.id), style:"float: right; font-size: 16px; color: #73cf42 !important; border: none" %>
-                              <% end  %>
-                            <% end  %>
+                                            <% @MylastBooking = Booking.all.where(parking_id: parking.id).last  %>
+                                            <% if @MylastBooking.nil? == false  %>
+                                                <% booking = @MylastBooking  %>
+                                                <% @BookingDate = booking.created_at.strftime("%m/%d/%Y")  %>
+
+                                                <% if @BookingDate == Time.now.strftime("%m/%d/%Y")  %>
+                                                  <p style="float: right; font-size: 16px;  padding-top: 12.5px; padding-bottom: 12.5px; line-height: 25px;color: #ff6b6b !important; border: none">Currently rent, status can't be amended ✋</p>
+                                                <% else %>
+                                                  <% if parking.status == "Available" %>
+                                                    <%= link_to "Make it unavailable", state_parking_path(parking.id), style:"    background: #ff6b6b; padding: 12px; float: right; color: #fff; border-radius: 3px; border: none; font-size: 16px" %>
+                                                  <% else  %>
+                                                    <%= link_to "Make it available", state_parking_path(parking.id), style:"    background: #46cd38; padding: 12px; float: right; color: #fff; border-radius: 3px; border: none; font-size: 16px" %>
+                                                  <% end  %>
+                                                <% end  %>
+                                            <% else  %>
+                                              <% if parking.status == "Available" %>
+                                                    <%= link_to "Make it unavailable", state_parking_path(parking.id), style:"    background: #ff6b6b; padding: 12px; float: right; color: #fff; border-radius: 3px; border: none; font-size: 16px" %>
+                                              <% else  %>
+                                                    <%= link_to "Make it available", state_parking_path(parking.id), style:"    background: #46cd38; padding: 12px; float: right; color: #fff; border-radius: 3px; border: none; font-size: 16px" %>
+                                              <% end  %>
+                                            <% end  %>
           <% end %>
   <% end  %>
 </li>

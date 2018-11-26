@@ -29,7 +29,6 @@
                                           <p style="margin-left: 0px; font-size: 14px;">Booked on <%= @my_bookings.last.created_at.strftime("%m/%d/%Y") %></p><br>
                                           <p style="margin-left: 0px; font-size: 14px">will be avaialble tomorrow <%= Date.tomorrow.strftime('%m/%d/%Y') %></p>
                                       </div>
-                                      <div class="customer-rating">Next Booking</div>
                                   </div>
                               </div>
                           </div>
@@ -101,21 +100,20 @@
                                                 <p style="margin-left: 0px; font-size: 14px">Parking status: <%= parking.status %></p>
                                             </div>
                                             <!-- can't change status if parking currently booked -->
-                                            <% @MyBookings = Booking.all.where(parking_id: parking.id)  %>
-                                            <% if @MyBookings.empty? == false  %>
-                                              <% @MyBookings.each do |booking| %>
+                                            <% @MylastBooking = Booking.all.where(parking_id: parking.id).last  %>
+                                            <% if @MylastBooking.nil? == false  %>
+                                                <% booking = @MylastBooking  %>
                                                 <% @BookingDate = booking.created_at.strftime("%m/%d/%Y")  %>
+
                                                 <% if @BookingDate == Time.now.strftime("%m/%d/%Y")  %>
-                                                  <p style="float: right; font-size: 14px; color: #ff6b6b !important; border: none">Currently rent, status can't be amended ✋</p>
-                                                <% else  %>
+                                                  <p style="float: right; font-size: 16px;  padding-top: 12.5px; padding-bottom: 12.5px; color: #ff6b6b !important; border: none">Currently rent, status can't be amended ✋</p>
+                                                <% else %>
                                                   <% if parking.status == "Available" %>
                                                     <%= link_to "Make it unavailable", state_parking_path(parking.id), style:"    background: #ff6b6b; padding: 4px 16px; float: right; color: #fff; border-radius: 3px; border: none; font-size: 16px" %>
-
                                                   <% else  %>
                                                     <%= link_to "Make it available", state_parking_path(parking.id), style:"    background: #46cd38; padding: 4px 16px; float: right; color: #fff; border-radius: 3px; border: none; font-size: 16px" %>
                                                   <% end  %>
                                                 <% end  %>
-                                              <% end  %>
                                             <% else  %>
                                               <% if parking.status == "Available" %>
                                                     <%= link_to "Make it unavailable", state_parking_path(parking.id), style:"    background: #ff6b6b; padding: 4px 16px; float: right; color: #fff; border-radius: 3px; border: none; font-size: 16px" %>
