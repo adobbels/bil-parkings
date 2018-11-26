@@ -96,7 +96,8 @@
                                 <div class="customer-content-wrap" style="margin-left: 0px">
                                     <div class="customer-content">
                                             <div class="customer-review">
-                                                <h6>Parking #<%= Parking.where(id: parking.id)[0].number %></h6>
+                                                <%= link_to "Parking ##{parking.number}", parking_path(parking.id), style:"color: #73cf42 !important; font-size: 16px; border: none; padding-left: 0px; font-weight: 500; line-height: 1.1; font-family: inherit;" %>
+                                                <h6> </h6>
                                                 <p style="margin-left: 0px; font-size: 14px">Parking status: <%= parking.status %></p>
                                             </div>
                                             <!-- can't change status if parking currently booked -->
