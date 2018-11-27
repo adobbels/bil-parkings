@@ -1,4 +1,17 @@
 
+<% if user_signed_in? %>
+  <% if current_user && current_user.profile %>
+
+      <% @profile = current_user.profile  %>
+      <% @bookings = Booking.where(profile_id: @profile.id) %>
+      <% @my_bookings = Booking.where(profile_id: @profile.id) %>
+      <% if @my_bookings != [] && @my_bookings.last.created_at.strftime("%m/%d/%Y") == Time.now.strftime("%m/%d/%Y")  %>
+      <% @current_booking = true  %>
+      <% end  %>
+  <% end  %>
+<% end  %>
+
+
 <section class="hero-wrap d-flex align-items-center" style="background-color: white">
     <div class="container">
         <div class="row d-flex justify-content-center">
@@ -12,30 +25,31 @@
                 <form>
                     <div class="search-box">
                         <div class="row">
-                            <div class="col-md-6 search-box_line">
+<!--                             <div class="col-md-6 search-box_line">
                                 <div class="search-box1">
                                     <div class="search-box-title">
                                         <label>When?</label><br>
-
-<!--                                         <input type="text" name="#" class="search-form" placeholder=<%= Time.now.strftime("%m/%d/%Y")%>> -->
                                         <input type="text" name="#" class="search-form" value=<%= Date.tomorrow.strftime('%m/%d/%Y')  %> disabled="disabled">
 
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
+                            </div> -->
+                            <div class="col-md-12">
                                 <div class="search-box2">
-                                    <div class="search-box-title">
-                                        <label>Where?</label><br>
-                                        <input type="text" name="#" class="search-form" value="Banque Internationale à Luxembourg" disabled="disabled">
+                                    <div class="search-box-title" style="padding-top: 0px">
+                                        <label>Book your parking for tomorrow <%= Date.tomorrow.strftime('%m/%d/%Y')  %></label><br>
+                                        <p style="font-weight: 300; font-size: 18px; color: #484848;    margin-bottom: 0px;">As a reminder, the car park you are looking for is within BIL</p>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                     <div class="btn-search">
+                      <% if @current_booking == true %>
+                        <%= link_to 'Cant book twice', parkings_path, class: 'btn btn-simple' %>
+                      <% else  %>
                         <%= link_to 'Search →', parkings_path, class: 'btn btn-simple' %>
+                      <% end  %>
                     </div>
                 </form>
                 <p class="search-bottom-title">By using this website, you are agreeing to our  <span style="text-decoration: underline;">terms and conditions</span></p>
