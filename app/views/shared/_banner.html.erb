@@ -46,7 +46,7 @@
                     </div>
                     <div class="btn-search">
                       <% if @current_booking == true %>
-                        <%= link_to 'Cant book twice', parkings_path, class: 'btn btn-simple' %>
+                        <%= link_to "Can't book twice 😞", root_path, disabled: true, class: 'btn btn-simple', style:"opacity: 1;"  %>
                       <% else  %>
                         <%= link_to 'Search →', parkings_path, class: 'btn btn-simple' %>
                       <% end  %>
