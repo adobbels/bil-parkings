@@ -1,14 +1,12 @@
-
-<!--   <% if @parking.nil? == false  %>
-  <p>id: <%= @parking.id %> / number: <%= @parking.number %> / status: <%= @parking.status %>/ owner: <%= @parking.profile.id %> / stamp: <%= @parking.stamp %></p>
-  <% else  %>
-  <% end  %> -->
-
   <% @booking = Booking.new %>
 
     <!--============================= PAYMENT METHORD =============================-->
 
-    <section class="main-block" style="background-image: url('assets/bmw.jpeg')">
+
+
+
+    <section class="main-block" style="background-image: url(<%= randomized_background_image %>)">
+      <!-- check application_helper.rb for randomized_background_image -->
         <div class="container-fluid" >
             <div class="row justify-content-center">
                 <div class="col-md-10">
