@@ -20,6 +20,8 @@ gem 'webpacker'
 gem 'activeadmin', github: 'activeadmin/activeadmin'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'rails_12factor', group: :production
+gem "letter_opener", group: :development
+gem 'dotenv-rails', groups: [:development, :test]
 
 group :development do
   gem 'web-console', '>= 3.3.0'
