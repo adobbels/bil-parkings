@@ -33,7 +33,7 @@ class BookingsController < ApplicationController
 
     if @booking.save
       # flash[:notice] = 'Booking was successfully created.'
-      # BookingMailer.creation_confirmation(@booking).deliver_now
+      BookingMailer.creation_confirmation(@booking).deliver_now
       # BookingAdminMailer.admin_creation_confirmation(@booking).deliver_now
        @parking.status = "Not Available"
        @parking.stamp = ""
@@ -47,9 +47,6 @@ class BookingsController < ApplicationController
     end
 
   end
-
-
-
 
   def edit
   end
