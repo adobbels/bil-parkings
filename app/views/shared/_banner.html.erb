@@ -23,8 +23,7 @@
         <div class="row d-flex justify-content-center">
             <div class="hero-title">
                       <% if @current_booking == true %>
-                        <%= link_to "Can't book twice 😞", root_path, disabled: true, class: 'btn btn-simple', style:"color: red;
-    padding: 20px 46px;     font-size: 18px;"  %>
+                        <%= link_to "Can't book twice 😞", root_path, disabled: true, class: 'btn btn-simple', style:"color: white; padding: 20px 46px; font-size: 18px;background: #ff6b6b; border-radius: 6px; margin: 100px 0px"  %>
                       <% else  %>
                         <%= link_to 'Search →', parkings_path, class: 'btn btn-simple', style:"color: white; padding: 20px 46px; font-size: 18px;background: #ff6b6b; border-radius: 6px; margin: 100px 0px" %>
                       <% end  %>
@@ -39,7 +38,7 @@
             <div class="hero-title demo" id="section10">
 
 
-  <a style="color: #7c7c7c;font-family: 'Roboto', sans-serif; font-size: 14px"><span></span>Scroll</a>
+  <a style="color: #7c7c7c;font-family: 'Roboto', sans-serif; font-size: 14px"><span></span>scroll down</a>
 
             </div>
 
