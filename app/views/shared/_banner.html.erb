@@ -12,7 +12,7 @@
 <% end  %>
 
 
-<section class="hero-wrap d-flex align-items-center" style="background-color: white">
+<section class="hero-wrap d-flex align-items-center " style="background-color: white; height: calc(100vh);">
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="hero-title">
@@ -20,20 +20,52 @@
                 <h3>Find out the perfect parking lot to park your car where you work</h3>
             </div>
         </div>
-        <div class="row">
+        <div class="row d-flex justify-content-center">
+            <div class="hero-title">
+                      <% if @current_booking == true %>
+                        <%= link_to "Can't book twice 😞", root_path, disabled: true, class: 'btn btn-simple', style:"color: red;
+    padding: 20px 46px;     font-size: 18px;"  %>
+                      <% else  %>
+                        <%= link_to 'Search →', parkings_path, class: 'btn btn-simple', style:"color: white; padding: 20px 46px; font-size: 18px;background: #ff6b6b; border-radius: 6px; margin: 100px 0px" %>
+                      <% end  %>
+            </div>
+
+
+
+        </div>
+
+
+        <div class="row d-flex justify-content-center">
+            <div class="hero-title demo" id="section10">
+
+
+  <a style="color: #7c7c7c;font-family: 'Roboto', sans-serif; font-size: 14px"><span></span>Scroll</a>
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- <div class="row">
             <div class="col-md-12">
                 <form>
                     <div class="search-box">
                         <div class="row">
-<!--                             <div class="col-md-6 search-box_line">
-                                <div class="search-box1">
-                                    <div class="search-box-title">
-                                        <label>When?</label><br>
-                                        <input type="text" name="#" class="search-form" value=<%= Date.tomorrow.strftime('%m/%d/%Y')  %> disabled="disabled">
-
-                                    </div>
-                                </div>
-                            </div> -->
                             <div class="col-md-12">
                                 <div class="search-box2">
                                     <div class="search-box-title" style="padding-top: 0px">
@@ -54,7 +86,7 @@
                 </form>
                 <p class="search-bottom-title">By using this website, you are agreeing to our  <span style="text-decoration: underline;">terms and conditions</span></p>
             </div>
-        </div>
+        </div> -->
     </div>
 </section>
 
