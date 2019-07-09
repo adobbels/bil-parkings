@@ -15,12 +15,12 @@ Parking.destroy_all
 Profile.destroy_all
 User.destroy_all
 
-puts "***--- READING CSV DATABASE ---***"
+# puts "***--- READING CSV DATABASE ---***"
 
-csv_text = File.read(Rails.root.join('lib', 'seeds', 'users.csv'))
-csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+# csv_text = File.read(Rails.root.join('lib', 'seeds', 'users.csv'))
+# csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
 
-puts "***--- CREATING ADMIN USER ---***"
+puts "***--- CREATING ADMIN USERS ---***"
 
   user = User.create!(
     email: 'aurelien.dobbels@bil.com',
@@ -33,29 +33,85 @@ puts "***--- CREATING ADMIN USER ---***"
     user_id: user.id,
   )
 
-
-puts "***--- CREATING USERS ---***"
-csv.each do |row|
-  #  puts row['email'], row['password'],row['admin'], row['first_name'], row['last_name'], row['number'], row['status']
-
-
   user = User.create!(
-    email: row['email'],
-    password: row['password'],
-    admin: row['admin'],
+    email: 'aurelien@bil.com',
+    password: '123456',
+    admin: false,
   )
   profile = Profile.create!(
-    first_name: row['first_name'],
-    last_name: row['last_name'],
+    first_name: 'Aurélien',
+    last_name: 'Dobbels',
     user_id: user.id,
   )
-  parking = Parking.create!(
-      number: row['number'],
-      status: row['status'],
-      profile_id: profile.id,
+
+  user = User.create!(
+    email: 'andre.weiland@bil.com',
+    password: '123456',
+    admin: true,
+  )
+  profile = Profile.create!(
+    first_name: 'André',
+    last_name: 'Weiland',
+    user_id: user.id,
   )
 
+  user = User.create!(
+    email: 'gpos.parkings@bil.com',
+    password: '123456',
+    admin: true,
+  )
+  profile = Profile.create!(
+    first_name: 'André',
+    last_name: 'Weiland',
+    user_id: user.id,
+  )
+
+# A UTILISER SI ON REVIENT AU MODELE SELON LEQUEL CHAQUE PROPRIO DE PARKING PEUT SOUS LOUER
+# PENSER A UTILISER LE USER.CSV DE NOUVEAU
+# puts "***--- CREATING USERS ---***"
+# csv.each do |row|
+#   #  puts row['email'], row['password'],row['admin'], row['first_name'], row['last_name'], row['number'], row['status']
+
+
+#   user = User.create!(
+#     email: row['email'],
+#     password: row['password'],
+#     admin: row['admin'],
+#   )
+#   profile = Profile.create!(
+#     first_name: row['first_name'],
+#     last_name: row['last_name'],
+#     user_id: user.id,
+#   )
+#   parking = Parking.create!(
+#       number: row['number'],
+#       status: row['status'],
+#       profile_id: profile.id,
+#   )
+
+# end
+
+puts "***--- CREATING 10 PARKING AVAILABLE LINKED TO GPOS ---***"
+b = 0
+
+10.times do
+b = b + 1
+  parking = Parking.create!(
+      number: b,
+      profile_id: Profile.last.id,
+      status: "Available",
+      stamp: b
+  )
 end
+
+
+#   parking = Parking.create!(
+#       number: 1,
+#       profile_id: a[0],
+#       status: "Not Available",
+#   )
+
+# ************************************
 
 # puts "***--- SEEDS PROCESSING ---***"
 

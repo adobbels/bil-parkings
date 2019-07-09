@@ -16,7 +16,7 @@ class ParkingsController < ApplicationController
     @profile = current_user.profile
     if @parking.status == "Available"
       @parking.status = "Not Available"
-      @parking.stamp = ""
+      @parking.stamp = DateTime.now.strftime('%s').to_i
       @parking.save
       flash[:alert] = 'Parking Not Available.'
     elsif
