@@ -23,7 +23,17 @@
                                         <div class="booking-cost">
                                             <span>Reservation Details</span>
                                             <p>Lot number <span> <%= @parking.number %> </span></p>
-                                            <p>Date <span> <%= Time.now.next_day(1).strftime('%a %d %b %Y') %> </span></p>
+                                            <% today = Time.now.wday %>
+
+
+                                            <% if today == 5 %>
+                                              <% tom = Time.now.next_day(3).strftime('%a %d %b %Y') %>
+                                              <% elsif today == 6 %>
+                                              <% tom = Time.now.next_day(2).strftime('%a %d %b %Y') %>
+                                              <% else %>
+                                              <% tom = Time.now.next_day(1).strftime('%a %d %b %Y') %>
+                                            <% end %>
+                                            <p>Date <span> <%= tom %> </span></p>
                                             <p>Time <span>7am to 7pm</span></p>
                                         </div>
                                         <div class="booking-cost">
